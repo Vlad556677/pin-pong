@@ -29,17 +29,16 @@ class  GameSprite(sprite.Sprite):
 
 
 class Player(GameSprite):
-    def update(self):
+    def update_w(self):
         keys_pressed = key.get_pressed()
 
-        if keys_pressed[K_a] and self.rect.x > 0:
-            self.rect.x -= self.speed
-        if keys_pressed[K_d] and self.rect.x < 645:
-            self.rect.x += self.speed
         if keys_pressed[K_w] and self.rect.y > 0:
-            self.rect.x -= self.speed
-        if keys_pressed[K_s] and self.rect.x < 445:
-            self.rect.x += self.speed
+            self.rect.y -= self.speed
+    def update_s(self):
+        keys_pressed = key.get_pressed()
+
+        if keys_pressed[K_s] and self.rect.y < 320:
+            self.rect.y += self.speed
         
 
 
@@ -47,9 +46,9 @@ class Player(GameSprite):
 
 
 
-hero = Player('wall.png', 25 , 50, 10 , 25, 190)
+hero = Player('wall.png', 25 , 100, 10 , 25, 100)
 
-hero_2 = Player('wall.png', 650 , 50, 10 , 25, 190)
+hero_2 = Player('wall.png', 650 , 100, 10 , 25, 100)
 
 
 game = True
@@ -65,11 +64,16 @@ while game:
     if finish != True:
        
         hero.reset()
-        hero.update()
+        hero.update_w()
+        hero.update_s()
 
         hero_2.reset()
-        hero_2.update()
+        hero_2.update_w()
+        hero_2.update_s()
 
+    display.update()
+    clock.tick(FPS)
+pygame.display.update()
 
     display.update()
     clock.tick(FPS)
